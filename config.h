@@ -7,11 +7,15 @@
 #define DEFAULT_CONSTRAINT_A_MAX {0.5, 1.4, 0.10}
 
 
+// Define Odométrie
 #define DEFAULT_PERIOD 0.005 // période de rafraichissement de l'asserv
-
+#define tic_by_meter 1 // a adapter
+#define meter_by_tic 1 // a adapter
+#define spacing 0.30 // en m à adapter
+#define period 0.005
 #define DEFAULT_STOP_DISTANCE 0.01
-
-//coéfficient du PID
+#define PI 3.1415
+//coefficients du PID
 
 #define DEFAULT_PID_COEFS_DELTA {130,90,20000,0.5}
 #define DEFAULT_PID_COEFS_ALPHA {10,5.5,30,0.5,0.9}
