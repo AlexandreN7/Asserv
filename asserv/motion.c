@@ -10,7 +10,7 @@ void motion_init() {
 }
 
 void motion_step(float tics_g,float tics_d, float *cmd_g, float *cmd_d) {
-    odo_step(&tics_g,&tics_d);
+    odo_step(tics_g,tics_d);
     //asserv_step();
 }
 

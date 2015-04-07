@@ -9,9 +9,9 @@
 
 // Define Odométrie
 #define DEFAULT_PERIOD 0.005 // période de rafraichissement de l'asserv
-#define tic_by_meter 1 // a adapter
-#define meter_by_tic 1 // a adapter
-#define spacing 0.30 // en m à adapter
+#define tic_by_meter 54640 // a adapter
+#define meter_by_tic 0.000018302 // a adapter
+#define spacing 0.2732 // en m à adapter
 #define period 0.005
 #define DEFAULT_STOP_DISTANCE 0.01
 #define PI 3.1415

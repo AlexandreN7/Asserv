@@ -1,0 +1,31 @@
+# depslib dependency file v1.0
+1427738194 source:/home/archi/projets/asserv/asserv.c
+
+1428440678 source:/home/archi/projets/asserv/motion.c
+	"config.h"
+	"motion.h"
+	"odo.h"
+	"asserv.h"
+
+1428439388 /home/archi/projets/asserv/config.h
+
+1428438119 /home/archi/projets/asserv/motion.h
+
+1428440653 /home/archi/projets/asserv/odo.h
+
+1427738102 /home/archi/projets/asserv/asserv.h
+
+1428441613 source:/home/archi/projets/asserv/odo.c
+	"config.h"
+	"odo.h"
+	"asserv.h"
+	"math.h"
+	"motion.h"
+	<stdio.h>
+
+1428441739 source:/home/archi/projets/asserv/main.c
+	<stdio.h>
+	<stdlib.h>
+	"motion.h"
+	"odo.h"
+

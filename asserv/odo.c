@@ -3,7 +3,7 @@
 #include "asserv.h"
 #include "math.h"
 #include "motion.h"// pour avoir les structures
-
+#include <stdio.h>
 //////////////////////////////Variables//////////////////////////////////
 Position pos_old;
 Speed speed_old;
@@ -42,10 +42,13 @@ void odo_init(){ // démarrage de l'odométrie
 
 }
 
-void odo_step(float * tics_g, float * tics_d) {
-    step();
-    float diff_g =  *tics_g - tics_g_old;
-    float diff_d = *tics_d - tics_d_old;
+void odo_step(float tics_g, float tics_d) {
+    //step();
+    float diff_g =  (tics_g - tics_g_old)*meter_by_tic;
+    float diff_d = (tics_d - tics_d_old)*meter_by_tic;
+
+    tics_g_old=tics_g;
+    tics_d_old=tics_d;
 
     float distance = (diff_g+diff_d)/2;
     float angle = (diff_d-diff_g)/spacing;
@@ -63,6 +66,12 @@ void odo_step(float * tics_g, float * tics_d) {
     acc_current.at=speed_current.vt-speed_old.vt;
     acc_current.v_vt=speed_current.vt*speed_current.v;
 
+
+    //DEBUG
+    printf("pos %f,%f,%f \n",pos_current.x,pos_current.y,pos_current.t);
+    printf("distance, angle : %f,%f \n", distance,angle);
+
+    printf("diff_g %f", diff_g);
 }
 
 void step(void) {
@@ -84,7 +93,7 @@ float decalage_angulaire(float angle){
     if (fabs(angle)< PI){return angle;}
     else {
         alpha = fmod(angle,2*PI);
-        if (alpha<-PI){alpha += 2*PI;} 
+        if (alpha<-PI){alpha += 2*PI;}
         if (alpha>PI){alpha -= 2*PI;}
         return alpha;
     }
