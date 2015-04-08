@@ -18,9 +18,9 @@ void motion_step(int tics_g,int tics_d, float *cmd_g, float *cmd_d) {
     //asserv_step();
 }
 
-void motion_speed(Speed speed,Speed *speed_consigne){
+void motion_speed(Speed speed){
 
-    *speed_consigne = rampe(speed_current,speed,acc_current);
+    speed_consigne = rampe(speed_current,speed,acc_current);
 }
 
 
