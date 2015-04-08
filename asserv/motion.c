@@ -4,6 +4,7 @@
 #include "asserv.h"
 
 extern Speed speed_current;
+extern Speed speed_consigne;
 extern Acceleration acc_current;
 
 //initialiser l'asservissement
@@ -17,10 +18,9 @@ void motion_step(int tics_g,int tics_d, float *cmd_g, float *cmd_d) {
     //asserv_step();
 }
 
-void motion_speed(Speed speed) {
-    rampe(speed_current,speed,acc_current);
+void motion_speed(Speed speed,Speed *speed_consigne){
 
-
+    *speed_consigne = rampe(speed_current,speed,acc_current);
 }
 
 

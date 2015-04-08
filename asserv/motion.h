@@ -22,9 +22,8 @@ typedef struct {
 
 
 void motion_init();
-void motion_pos(Position pos);
-void motion_speed(Speed pos);
-
+void motion_pos(Position);
+void motion_speed(Speed, Speed*);
 void motion_step(int tics_g,int tics_d, float *cmd_g, float *cmd_d); // avancement de l'asserv
 #endif
 
