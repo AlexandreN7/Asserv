@@ -15,7 +15,7 @@ typedef struct { // vitesse angulaire du robot
 
 typedef struct {
     float a; //m/s2
-    float at; 
+    float at;
     float v_vt;// en rad*m/s2
 } Acceleration;
 
@@ -25,6 +25,6 @@ void motion_init();
 void motion_pos(Position pos);
 void motion_speed(Speed pos);
 
-void motion_step(float tics_g,float tics_d, float *cmd_g, float *cmd_d); // avancement de l'asserv 
+void motion_step(int tics_g,int tics_d, float *cmd_g, float *cmd_d); // avancement de l'asserv
 #endif
 

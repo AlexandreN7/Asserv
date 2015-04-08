@@ -3,7 +3,7 @@
 
 void odo_init();
 void step();
-void odo_step(float,float);
+void odo_step(int,int);
 float decalage_angulaire(float);
 
-#endif 
+#endif

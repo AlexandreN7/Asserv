@@ -15,8 +15,8 @@ Speed speed_current;
 Acceleration acc_current;
 
 
-float tics_g_old = 0;
-float tics_d_old = 0;
+int tics_g_old = 0;
+int tics_d_old = 0;
 //////////////////////////////Fonctions///////////////////////////////////
 void odo_init(){ // démarrage de l'odométrie
     pos_old.x=0;
@@ -42,9 +42,9 @@ void odo_init(){ // démarrage de l'odométrie
 
 }
 
-void odo_step(float tics_g, float tics_d) {
-    //step();
-    float diff_g =  (tics_g - tics_g_old)*meter_by_tic;
+void odo_step(int tics_g,int tics_d) {
+    step(); // old = new
+    float diff_g = (tics_g - tics_g_old)*meter_by_tic;
     float diff_d = (tics_d - tics_d_old)*meter_by_tic;
 
     tics_g_old=tics_g;
@@ -68,10 +68,16 @@ void odo_step(float tics_g, float tics_d) {
 
 
     //DEBUG
-    printf("pos %f,%f,%f \n",pos_current.x,pos_current.y,pos_current.t);
+    printf("pos : %f,%f,%f \n",pos_current.x,pos_current.y,pos_current.t);
     printf("distance, angle : %f,%f \n", distance,angle);
+    printf("diff_g %f \n", diff_g);
+    printf("diff_d %f \n", diff_d);
+    printf("Vitesse, vitesse angulaire : %f, %f\n", speed_current.v,speed_current.vt);
+    printf("Accélération, accélération angulaire : %f, %f \n", acc_current.a, acc_current.at);
 
-    printf("diff_g %f", diff_g);
+
+
+    printf("\n");
 }
 
 void step(void) {
@@ -85,7 +91,6 @@ void step(void) {
     acc_old.a=acc_current.a;
     acc_old.at=acc_current.at;
     acc_old.v_vt=acc_current.v_vt;
-
 }
 
 float decalage_angulaire(float angle){

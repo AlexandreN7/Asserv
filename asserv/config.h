@@ -3,8 +3,11 @@
 
 // Dossier contenant les valeurs retenus pour l'asservissement
 #define NULL 0
-#define DEFAULT_CONSTRAINT_V_MAX {0.45, 0.7}
-#define DEFAULT_CONSTRAINT_A_MAX {0.5, 1.4, 0.10}
+#define DEFAULT_CONSTRAINT_V_MAX 0.45
+#define DEFAULT_CONSTRAINT_VT_MAX 0.7
+#define DEFAULT_CONSTRAINT_A_MAX 1.4, 0.10
+#define DEFAULT_CONSTRAINT_AT_MAX 1.4
+#define DEFAULT_CONSTRAINT_VT_T_MAX 0.10
 
 
 // Define Odométrie

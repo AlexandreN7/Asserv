@@ -4,18 +4,18 @@
 #include "odo.h"
 
 int main(void) {
-    float tg,td;
-    //float cg=0,cd=0;
+    int tg,td;
+    float cg=0,cd=0;
 
     motion_init();
-    tg=50000;
-    td=100000;
-    odo_step(tg,td);
-    tg=100000;
-    td=100000;
-    odo_step(tg,td);
-    tg=-150000;
-    td=-200000;
-    odo_step(tg,td);
+    tg=500;
+    td=500;
+    motion_step(tg,td,&cg,&cd);
+    tg=1000;
+    td=1000;
+    motion_step(tg,td,&cg,&cd);
+    tg=1500;
+    td=1500;
+    motion_step(tg,td,&cg,&cd);
     return 0;
 }
