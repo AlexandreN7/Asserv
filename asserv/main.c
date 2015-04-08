@@ -17,8 +17,8 @@ int main(void) {
     tg=1000;
     td=1000;
     motion_step(tg,td,&cg,&cd);
-    tg=1500;
-    td=1500;
+    tg=10;
+    td=10;
     motion_step(tg,td,&cg,&cd);
     return 0;
 }

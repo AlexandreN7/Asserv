@@ -39,8 +39,8 @@ void speed_asserv_step(Speed speed_current,Acceleration acc_current, float *cmg,
     *cmg = (2*period*C_v-C_vt*spacing*period)/2;
     *cmd = (2*period*C_v+C_vt*spacing*period)/2;
 
-    printf("commande droite : %f", *cmd);
-    printf("commande gauche : %f", *cmg);
+    printf("commande droite : %f \n", *cmd);
+    printf("commande gauche : %f \n", *cmg);
 
 }
 
