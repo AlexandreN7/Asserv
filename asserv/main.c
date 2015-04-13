@@ -4,21 +4,26 @@
 #include "odo.h"
 #include "asserv.h"
 
-int main(void) {
-    int tg,td;
-    float cg=0,cd=0;
-    Speed test = {0.1,0};
+void moteur(int*,int*,float*,float*);
 
-    motion_init();
+int main(void) {
+    int tg,td,i = 0;
+    float cg=0,cd=0;
+    Speed test = {2,0};
+
+    motion_init(); // initialisation odo,aserv
     motion_speed(test);
-    tg=500;
-    td=500;
-    motion_step(tg,td,&cg,&cd);
-    tg=1000;
-    td=1000;
-    motion_step(tg,td,&cg,&cd);
-    tg=10;
-    td=10;
-    motion_step(tg,td,&cg,&cd);
+    for(i=0;i<1000;i++) {
+        moteur(&tg,&td,&cg,&cd);
+        motion_step(tg,td,&cg,&cd);
+    }
     return 0;
+}
+
+void moteur(int *tg,int *td,float *cg,float *cd) {
+    *tg = (10)*(*cg);
+    *td = (10)*(*cd);
+
+    printf("tics_g générés %d ; tics_d générés %d  \n",*tg,*td);
+    printf("\n");
 }

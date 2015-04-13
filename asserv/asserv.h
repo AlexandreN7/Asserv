@@ -2,6 +2,7 @@
 #ifndef _ASSERV_H_
 #define _ASSERV_H_
 
+
 typedef struct {
     float Ep; // erreur proportionnelle
     float Ed; // dérivée de l'erreur
@@ -15,6 +16,8 @@ typedef struct {
 } PID;
 
 void speed_asserv_step(Speed, Acceleration,float *,float*);
-Speed rampe(Speed,Speed,Acceleration);
+void asserv_init();
+void init_rampe(Speed,Speed,Acceleration);
+void rampe(Speed);
 
 #endif

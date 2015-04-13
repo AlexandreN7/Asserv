@@ -9,6 +9,7 @@
 #define DEFAULT_CONSTRAINT_AT_MAX 1.4
 #define DEFAULT_CONSTRAINT_VT_T_MAX 0.10
 
+#define speed_threshold 0.01
 
 // Define Odométrie
 #define DEFAULT_PERIOD 0.005 // période de rafraichissement de l'asserv
