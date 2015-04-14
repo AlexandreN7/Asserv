@@ -68,10 +68,10 @@ void odo_step(int tics_g,int tics_d) {
 
 
     //DEBUG
-    printf("pos : %f,%f,%f \n",pos_current.x,pos_current.y,pos_current.t);
-    printf("distance, angle : %f,%f \n", distance,angle);
     printf("diff_g %f \n", diff_g);
     printf("diff_d %f \n", diff_d);
+    printf("distance, angle : %f,%f \n", distance,angle);
+    printf("pos xyt: %f,%f,%f \n",pos_current.x,pos_current.y,pos_current.t);
     printf("Vitesse, vitesse angulaire : %f, %f\n", speed_current.v,speed_current.vt);
     printf("Accélération, accélération angulaire : %f, %f \n", acc_current.a, acc_current.at);
 

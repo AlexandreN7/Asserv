@@ -17,9 +17,9 @@ void motion_init() {
 
 void motion_step(int tics_g,int tics_d, float *cmd_g, float *cmd_d) {
     odo_step(tics_g,tics_d); // step de l'odo
-
-    speed_asserv_step(speed_current,acc_current,cmd_g,cmd_d);
     rampe(speed_current); // génére les vitesses consignes à atteindre
+    speed_asserv_step(speed_current,acc_current,cmd_g,cmd_d);
+
 }
 
 void motion_speed(Speed speed){
