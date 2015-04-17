@@ -24,9 +24,9 @@ int main(void) {
     return 0;
 }
 
-void moteur(int *tg,int *td,float *cg,float *cd) {
-    *tg += (0.05)*(*cg);
-    *td += (0.1)*(*cd);
+void moteur(int *tg,int *td,float *cg,float *cd) {// modélisation d'un moteur linéaire E=kW
+    *tg =*tg+(*cg);
+    *td =*td+(*cd);
 
     printf("tics_g générés %d ; tics_d générés %d  \n",*tg,*td);
     printf("\n");

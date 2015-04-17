@@ -5,14 +5,15 @@
 
 typedef struct {
     float Ep; // erreur proportionnelle
-    float Ed; // dérivée de l'erreur
     float Ei;//somme des erreurs
+    float Ed; // dérivée de l'erreur
+
 } Error;
 
 typedef struct {
     float Kp; // erreur proportionnelle
-    float Kd; // dérivée de l'erreur
     float Ki;//somme des erreurs
+    float Kd; // dérivée de l'erreur
 } PID;
 
 void speed_asserv_step(Speed, Acceleration,float *,float*);

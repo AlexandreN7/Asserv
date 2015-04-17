@@ -12,7 +12,7 @@ Speed speed_goal;
 Error error_speed_v = {0,0,0};
 Error error_speed_vt = {0,0,0};
 
-PID pid_speed_v = {2000,0,0};
+PID pid_speed_v = {100,20,0};
 PID pid_speed_vt = {100,0,0};
 extern FILE* fichier ;
 int asserv_done = 0;
@@ -49,8 +49,8 @@ void speed_asserv_step(Speed speed_current,Acceleration acc_current, float *cmg,
 
     //*cmg = (2*period*C_v-C_vt*spacing*period)/2;
     //*cmd = (2*period*C_v+C_vt*spacing*period)/2;
-    *cmg = C_v-C_vt;
-    *cmd = C_v+C_vt;
+    *cmg += C_v-C_vt;
+    *cmd += C_v+C_vt;
     printf("ecart v : %f \n", E_v);
     printf("ecart vt : %f \n", E_vt);
     printf("\n");
