@@ -12,16 +12,19 @@ Speed speed_goal;
 Error error_speed_v = {0,0,0};
 Error error_speed_vt = {0,0,0};
 
-PID pid_speed_v = {100,20,0};
-PID pid_speed_vt = {100,0,0};
-extern FILE* fichier ;
+PID pid_speed_v = {10,0,0};
+PID pid_speed_vt = {1,0,0};
+extern FILE* fichier_v ;
+extern FILE* fichier_vt ;
 int asserv_done = 0;
+float C_v=0,C_vt=0;
 
-void asserv_init(){
+void asserv_init(){ // remise à zéro pour une nouvelle consigne
     speed_rampe.v=0;
     speed_rampe.vt=0;
     asserv_done = 0;
-
+    C_v=0;
+    C_vt=0;
     /*error_speed_v = {0,0,0};
     error_speed_vt = {0,0,0};*/
 }
@@ -29,12 +32,17 @@ void asserv_init(){
 
 void speed_asserv_step(Speed speed_current,Acceleration acc_current, float *cmg, float *cmd) {
     float E_v,E_vt;
-    float C_v,C_vt;
+
 
     E_v=speed_rampe.v-speed_current.v;
     E_vt=speed_rampe.vt-speed_current.vt;
 
 
+if(E_v<speed_threshold && E_vt<speed_threshold){
+    asserv_done=1;
+    printf("asserv terminée !");
+}
+else {
     error_speed_v.Ed= E_v-error_speed_v.Ep; // écriture des erreurs v
     error_speed_v.Ei= error_speed_v.Ep+E_v;
     error_speed_v.Ep= E_v;
@@ -44,13 +52,13 @@ void speed_asserv_step(Speed speed_current,Acceleration acc_current, float *cmg,
     error_speed_vt.Ep= E_vt;
 
     //application de la correction
-    C_v = error_speed_v.Ep*pid_speed_v.Kp + error_speed_v.Ei*pid_speed_v.Ki -error_speed_v.Ed*pid_speed_v.Kd;
-    C_vt = error_speed_vt.Ep*pid_speed_vt.Kp + error_speed_vt.Ei*pid_speed_vt.Ki -error_speed_vt.Ed*pid_speed_vt.Kd;
+    C_v += error_speed_v.Ep*pid_speed_v.Kp + error_speed_v.Ei*pid_speed_v.Ki -error_speed_v.Ed*pid_speed_v.Kd;
+    C_vt += error_speed_vt.Ep*pid_speed_vt.Kp + error_speed_vt.Ei*pid_speed_vt.Ki -error_speed_vt.Ed*pid_speed_vt.Kd;
 
     //*cmg = (2*period*C_v-C_vt*spacing*period)/2;
     //*cmd = (2*period*C_v+C_vt*spacing*period)/2;
-    *cmg += C_v-C_vt;
-    *cmd += C_v+C_vt;
+    *cmg = C_v-C_vt;
+    *cmd = C_v+C_vt;
     printf("ecart v : %f \n", E_v);
     printf("ecart vt : %f \n", E_vt);
     printf("\n");
@@ -64,7 +72,9 @@ void speed_asserv_step(Speed speed_current,Acceleration acc_current, float *cmg,
     printf("commande droite : %f \n", *cmd);
     printf("commande gauche : %f \n", *cmg);
     printf("\n");
-    fprintf(fichier, "%f %f \n ", speed_current.v,speed_rampe.v);
+    fprintf(fichier_v, "%f %f \n ", speed_current.v,speed_rampe.v);
+    fprintf(fichier_vt, "%f %f \n ", speed_current.vt,speed_rampe.vt);
+}
     }
 
 
