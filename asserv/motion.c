@@ -8,22 +8,29 @@ extern Speed speed_rampe; // vitesse théorique générée par l'asserv
 extern Acceleration acc_current; // accélérationa actuelle
 extern Speed speed_goal;// vitesse objectif
 
+int motion_state = 0; // variable contenant la nature de l'asserv à un instant donné 0: roue libre : 1 vitesse : 2 : position
 //initialiser l'asservissement
 void motion_init() {
-    //Position pos_init = {0.0.0};
+    motion_state = 0;
     odo_init();
     asserv_init();
 }
 
 void motion_step(int tics_g,int tics_d, float *cmd_g, float *cmd_d) {
     odo_step(tics_g,tics_d); // step de l'odo
-    rampe(speed_current); // génére les vitesses consignes à atteindre
-    speed_asserv_step(speed_current,acc_current,cmd_g,cmd_d);
+    switch (motion_state)
+    {
+        case 0 : break;
+        case 1 :
+            rampe(speed_current); // génére les vitesses consignes à atteindre
+            speed_asserv_step(speed_current,acc_current,cmd_g,cmd_d);
+        case 2 : break;
+    }
+
 
 }
 
 void motion_speed(Speed speed){
+    motion_state=1;// on passe en asserv en vitesse
     init_rampe(speed_current,speed,acc_current);
 }
-
-

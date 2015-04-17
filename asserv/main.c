@@ -11,7 +11,7 @@ FILE* fichier_vt = NULL;
 int main(void) {
     int tg=0,td=0,i= 0;
     float cg=0,cd=0;
-    Speed test = {1,0};
+    Speed test = {-1,-0.5};
 
 
     fichier_v = fopen("data_v.txt", "w+");
@@ -19,7 +19,7 @@ int main(void) {
 
     motion_init(); // initialisation odo,aserv
     motion_speed(test);
-    for(i=0;i<2000;i++) {
+    for(i=0;i<1000;i++) {
         moteur(&tg,&td,&cg,&cd);
         motion_step(tg,td,&cg,&cd);
     }
@@ -30,7 +30,7 @@ int main(void) {
 
 void moteur(int *tg,int *td,float *cg,float *cd) {// modélisation d'un moteur linéaire parfait E=kW
     *tg =*tg+(*cg);
-    *td =*td+0.7*(*cd);
+    *td =*td+(*cd);
 
     printf("tics_g générés %d ; tics_d générés %d  \n",*tg,*td);
     printf("\n");

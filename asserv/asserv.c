@@ -12,8 +12,8 @@ Speed speed_goal;
 Error error_speed_v = {0,0,0};
 Error error_speed_vt = {0,0,0};
 
-PID pid_speed_v = {10,0,0};
-PID pid_speed_vt = {1,0,0};
+PID pid_speed_v = {10,5,0};
+PID pid_speed_vt = {2,0,5};
 extern FILE* fichier_v ;
 extern FILE* fichier_vt ;
 int asserv_done = 0;
@@ -38,11 +38,12 @@ void speed_asserv_step(Speed speed_current,Acceleration acc_current, float *cmg,
     E_vt=speed_rampe.vt-speed_current.vt;
 
 
-if(E_v<speed_threshold && E_vt<speed_threshold){
+if(E_v<speed_threshold && E_vt<speed_threshold){ // asserv_done = 1 si on a atteint la vitesse voulue
     asserv_done=1;
     printf("asserv terminée !");
+    printf("\n");
 }
-else {
+
     error_speed_v.Ed= E_v-error_speed_v.Ep; // écriture des erreurs v
     error_speed_v.Ei= error_speed_v.Ep+E_v;
     error_speed_v.Ep= E_v;
@@ -74,7 +75,6 @@ else {
     printf("\n");
     fprintf(fichier_v, "%f %f \n ", speed_current.v,speed_rampe.v);
     fprintf(fichier_vt, "%f %f \n ", speed_current.vt,speed_rampe.vt);
-}
     }
 
 
@@ -82,11 +82,18 @@ else {
 void rampe(Speed speed_current){
 
 
-    if (speed_rampe.v<speed_goal.v) { // on vérifie si on est sur la pente ou au plat de la rampe
+    if (speed_rampe.v<=speed_goal.v) { // on vérifie si on est sur la pente ou au plat de la rampe
         speed_rampe.v= speed_rampe.v + DEFAULT_CONSTRAINT_A_MAX*period; // génération de l'échelon suivant de l'asserv
     }
-    else if (speed_rampe.vt<speed_goal.vt) {
-        speed_rampe.vt= speed_rampe.vt + DEFAULT_CONSTRAINT_AT_MAX*period;
+    else if (speed_rampe.v>speed_goal.v) {
+        speed_rampe.v= speed_rampe.v - DEFAULT_CONSTRAINT_A_MAX*period; // génération de l'échelon suivant de l'asserv
+    }
+
+    if (speed_rampe.vt<=speed_goal.vt) { // on vérifie si on est sur la pente ou au plat de la rampe
+        speed_rampe.vt= speed_rampe.vt + DEFAULT_CONSTRAINT_AT_MAX*period; // génération de l'échelon suivant de l'asserv
+    }
+    else if (speed_rampe.vt>speed_goal.vt) {
+        speed_rampe.vt= speed_rampe.vt - DEFAULT_CONSTRAINT_AT_MAX*period; // génération de l'échelon suivant de l'asserv
     }
     printf("rampe v: %f \n", speed_rampe.v);
     printf("rampe vt : %f \n", speed_rampe.vt);
